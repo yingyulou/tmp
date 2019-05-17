@@ -150,13 +150,41 @@ def __calcBackExpression(backExprStack):
 
 
 ################################################################################
+# Calc Back Expression (Recursion)
+################################################################################
+
+def __calcBackExpressionByRecursion(backExprStack):
+
+    calcStack = []
+
+    def __innerRecursionFunc():
+
+        if backExprStack:
+
+            nowStackValue = backExprStack.pop()
+
+            if isinstance(nowStackValue, float):
+                calcStack.append(nowStackValue)
+            else:
+                valueB, valueA = calcStack.pop(), calcStack.pop()
+                calcStack.append(OPERATOR_FUNCTION_HASH[nowStackValue](valueA, valueB))
+
+            return __innerRecursionFunc()
+
+        else:
+            return calcStack[0]
+
+    return __innerRecursionFunc()
+
+
+################################################################################
 # Evaluate An Expression List
 ################################################################################
 
 def simple_evaluation(tokens):
 
     backExprStack = __getBackExprStack(tokens)
-    calcResult    = __calcBackExpression(backExprStack)
+    calcResult    = __calcBackExpressionByRecursion(backExprStack)
 
     return calcResult
 
