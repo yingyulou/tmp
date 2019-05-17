@@ -64,8 +64,8 @@ def team_of_best_individuals(project, candidates):
 def __permutations(candidates):
 
     listLen   = len(candidates)
-    idxList   = range(listLen)
-    cycleList = range(listLen, 0, -1)
+    idxList   = list(range(listLen))
+    cycleList = list(range(listLen, 0, -1))
 
     yield [i for i in candidates]
 
